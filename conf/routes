@@ -1,0 +1,9 @@
+GET	    /                      controllers.Application.index
+
+GET     /user/create/:name        user.UserController.createUser(name: String)
+GET     /user/fail                user.UserController.failUser()
+GET     /user/snap                user.UserController.snapshotUser()
+GET     /user/:name               user.UserController.getUser(name: String)
+GET     /user/                    user.UserController.getUsers()
+
+GET     /ws/                      user.boundary.WebSocketEndpoint.socket()

@@ -1,0 +1,33 @@
+@(message: String)
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>presentation-play-java</title>
+	    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+	    <style>body{margin: 10px}</style> 
+	</head>
+	<body>
+		<div class="panel panel-primary">
+			<div class="panel-heading">@message</div>
+		</div>
+		<script>
+				var socket = new WebSocket('ws://localhost:9000/ws/');
+				socket.onmessage = function(msg){
+					console.log(JSON.parse(msg.data));
+				};
+				socket.onopen = function(msg){
+					console.log("Opened a connection")
+				};
+				socket.createUser = function(userName) {
+					var createUserCmd = {type: "CreateUserCmd", cmd: {user: {name: userName}}};
+					socket.send(JSON.stringify(createUserCmd));
+				};
+				socket.getUsers = function () {
+					var getUsersCmd = {type: "", cmd: ""};
+                    socket.send(JSON.stringify(getUsersCmd));
+				};
+		</script>
+	</body>
+</html>
