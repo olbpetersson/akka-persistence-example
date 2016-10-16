@@ -20,9 +20,9 @@
 				socket.onopen = function(msg){
 					console.log("Opened a connection")
 				};
-				socket.createUser = function(userName) {
-					var createUserCmd = {type: "CreateUserCmd", cmd: {user: {name: userName}}};
-					socket.send(JSON.stringify(createUserCmd));
+				socket.reportIllness = function(userName) {
+					var reportIllnessCmd = {type: "ReportIllnessCmd", cmd: {user: {name: userName}}};
+					socket.send(JSON.stringify(reportIllnessCmd));
 				};
 				socket.getUsers = function () {
 					var getUsersCmd = {type: "", cmd: ""};

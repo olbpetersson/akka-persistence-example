@@ -1,4 +1,4 @@
-package user.model;
+package illness.model;
 
 /**
  * Created by ola on 13/10/16.

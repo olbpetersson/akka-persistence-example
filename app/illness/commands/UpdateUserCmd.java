@@ -1,4 +1,4 @@
-package user.commands;
+package illness.commands;
 
 /**
  * Created by Ola on 2016-06-09.

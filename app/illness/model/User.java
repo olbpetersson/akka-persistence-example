@@ -1,4 +1,4 @@
-package user.model;
+package illness.model;
 
 import java.io.Serializable;
 
