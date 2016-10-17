@@ -5,6 +5,8 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.persistence.query.PersistenceQuery;
 import akka.persistence.query.journal.leveldb.javadsl.LeveldbReadJournal;
+import akka.stream.ActorMaterializer;
+import akka.stream.Materializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import illness.actors.ReadIllnessActor;
 import illness.actors.WebSocketActor;
@@ -32,7 +34,8 @@ public class WebSocketEndpoint {
         LeveldbReadJournal journal =
                 PersistenceQuery.get(actorSystem).getReadJournalFor(LeveldbReadJournal.class,
                         LeveldbReadJournal.Identifier());
-        this.readActor = actorSystem.actorOf(Props.create(ReadIllnessActor.class, journal));
+        Materializer materializer = ActorMaterializer.create(actorSystem);
+        this.readActor = actorSystem.actorOf(ReadIllnessActor.props(journal, materializer));
     }
 
     public LegacyWebSocket<JsonNode> socket() {

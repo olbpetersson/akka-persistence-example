@@ -5,12 +5,12 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import illness.commands.IllnessSnapshotCmd;
+import illness.commands.ReadIllnessesCmd;
 import play.Logger;
 import play.libs.Json;
 import illness.commands.ReportIllnessCmd;
 import illness.commands.FailureCmd;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
@@ -58,10 +58,11 @@ public class WebSocketActor extends UntypedActor {
                     Logger.info(illnessSnapshotCmd.toString());
                     targetMessage = illnessSnapshotCmd;
                     break;
-                case "GetIllnessesCmd":
+                case "ReadIllnessesCmd":
+                    Logger.info("received ReadIllnessesCmd");
                     targetActor = readActor;
-                    targetMessage = "";
-                    return CompletableFuture.supplyAsync(() -> "read side");
+                    targetMessage = new ReadIllnessesCmd();
+                    break;
                 default:
                     targetMessage = new FailureCmd();
             }

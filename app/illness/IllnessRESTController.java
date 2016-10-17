@@ -28,7 +28,7 @@ public class IllnessRESTController extends Controller {
     public IllnessRESTController(ActorSystem actorSystem) {
         this.actorSystem = actorSystem;
         illnessActor = actorSystem.actorOf(Props.create(WriteIllnessActor.class));
-        Logger.info("UserControllerSystem: "+String.valueOf(this.actorSystem.hashCode()));
+        Logger.info("IllnessRestControllerSystem: "+String.valueOf(this.actorSystem.hashCode()));
     }
 
 

@@ -15,6 +15,7 @@ class SicknessForm extends Component {
         this.submit = this.submit.bind(this);
         this.snapshot = this.snapshot.bind(this);
         this.fail = this.fail.bind(this);
+        this.readIllnesses = this.readIllnesses.bind(this);
 
         this.state = { value: '', loading: true};
 
@@ -51,6 +52,12 @@ class SicknessForm extends Component {
         this.ws.send(JSON.stringify(failure));
     }
 
+    readIllnesses(){
+        var readCmd = {type: "ReadIllnessesCmd"};
+        console.log(readCmd);
+        this.ws.send(JSON.stringify(readCmd));
+    }
+
     render() {
         let loading = this.state.loading;
         return (
@@ -80,6 +87,11 @@ class SicknessForm extends Component {
                     onClick={this.fail}>
                     Crasch it!
                 </Button>
+                <Button
+                    disabled={loading}
+                    onClick={this.readIllnesses}>
+                    Read Illnesses!
+                </Button>
             </form>
         );
     }
@@ -93,6 +105,9 @@ class SicknessForm extends Component {
 
         webSocket.onclose = function(){
             component.setState({loading: true});
+        }
+        webSocket.onmessage = function(msg){
+            console.log(msg.data);
         }
     }
 }
